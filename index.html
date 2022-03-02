@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="./css/index.css" type="text/css" />
+    <script
+      src="https://kit.fontawesome.com/c06af29e63.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <title>Frontend Mentor | Advice generator app</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  </head>
+  <body>
+    <div class="container">
+      <div class="advice-number">ADVICE #<span id="number"></span></div>
+      <div class="advice-content">
+        "<span class="dynamic-content"
+          >It is easy to sit up and take notice, what's difficult is getting up
+          and taking action.</span
+        >"
+      </div>
+      <!-- bottom line -->
+      <div class="bottom-line">
+        <hr />
+        <i class="fas fa-duotone fa-pause"></i>
+        <hr />
+      </div>
+      <!-- button -->
+      <div class="button-container">
+        <i class="fas fa-regular fa-dice-five"></i>
+      </div>
+    </div>
+    <script>
+      let adviceDiv = document.querySelector(".dynamic-content")
+      let numberDiv = document.querySelector("#number")
+      document
+        .querySelector(".button-container")
+        .addEventListener("click", (e) => {
+          console.log("clicked...")
+          e.preventDefault()
+          fetch("https://api.adviceslip.com/advice")
+            .then((res) => res.json())
+            .then(({ slip: { id, advice } }) => {
+              numberDiv.innerHTML = id
+              adviceDiv.innerHTML = advice
+            })
+            .catch((err) => console.log(err))
+        })
+    </script>
+  </body>
+</html>
